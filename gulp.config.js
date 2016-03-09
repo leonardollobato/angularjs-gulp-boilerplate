@@ -20,6 +20,8 @@ module.exports = function() {
             './bower_components/font-awesome/fonts/*.*',
             './bower_components/bootstrap/dist/fonts/*.*'
         ],
+        html: '**/*.html',
+        htmltemplates: clientApp + '**/*.html',
         images: [
             client + 'images/**/*.*'
         ],
@@ -38,7 +40,14 @@ module.exports = function() {
             directory: './bower_components',
             ignorePath: '../..'
         },
-
+        templateCache: {
+            file: 'templates.js',
+            options: {
+                module: 'core',
+                standAlone: false,
+                root: 'app/'
+            }
+        },
         defaultPort: 7203,
         nodeServer: './node_modules/http-server/bin/http-server',
 
