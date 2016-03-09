@@ -1,6 +1,7 @@
 module.exports = function() {
     var client = './src/client/';
     var clientApp = client + 'app/';
+    var server = './node_modules/http-server/bin/';
     var temp = './.tmp/';
 
     var config = {
@@ -22,11 +23,16 @@ module.exports = function() {
         less: [
             client + '/styles/styles.less'
         ],
+        server: server,
         bower: {
             json: require('./bower.json'),
             directory: './bower_components',
             ignorePath: '../..'
-        }
+        },
+
+        defaultPort: 7203,
+        nodeServer: './node_modules/http-server/bin/http-server',
+
     };
 
     config.getWiredepDefaultOptions = function() {
