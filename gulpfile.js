@@ -8,10 +8,14 @@ var gulp = require('gulp'),
 
 gulp.task('help', $.taskListing);
 
-gulp.task('opt', ['inject'], function() {
+gulp.task('opt', ['inject', 'fonts', 'images'], function() {
     log('Optimizing the javascript, css and html');
 
     var assets = $.useref.assets({ searchPath: './' });
+    var cssFilter = $.filter('**/*.css');
+    var jsLibFilter = $.filter('**/' + config.optimized.lib);
+    var jsAppFilter = $.filter('**/' + config.optimized.app);
+
     var templateCache = config.temp + config.templateCache.file;
 
     return gulp.src(config.index)
@@ -20,15 +24,53 @@ gulp.task('opt', ['inject'], function() {
             gulp.src(templateCache, { read: false }), {
                 starttag: '<!-- inject:templates:js -->'
             }))
-        // .pipe($.inject(
-        //     gulp.src(
-        //         templateCache, { read: false }, { starttag: '<!-- inject:templates:js -->' }
-        //     )
-        // ))
         .pipe(assets)
+        .pipe(cssFilter)
+        .pipe($.csso())
+        .pipe(cssFilter.restore())
+        .pipe(jsLibFilter)
+        .pipe($.uglify())
+        .pipe(jsLibFilter.restore())
+        .pipe(jsAppFilter)
+        .pipe($.ngAnnotate())
+        .pipe($.uglify())
+        .pipe(jsAppFilter.restore())
+        .pipe($.rev())
         .pipe(assets.restore())
         .pipe($.useref())
+        .pipe($.revReplace())
+        .pipe(gulp.dest(config.build))
+        .pipe($.rev.manifest())
         .pipe(gulp.dest(config.build));
+});
+
+/**
+ * Bump the version
+ * --type=pre will bump the prerelease version *.*.*-x
+ * --type=patch or no flag will bump the patch version *.*.x
+ * --type=minor will bump the minor version *.x.*
+ * --type=major will bump the major version x.*.*
+ * --version=1.2.3 will bump to a specific version and ignore other flags
+ */
+gulp.task('version', function() {
+    var msg = 'Versioning';
+    var type = args.type;
+    var version = args.version;
+    var options = {};
+
+    if (version) {
+        options.version = version;
+        msg += ' to ' + version;
+    } else {
+        options.type = type;
+        msg += ' for a ' + type;
+    }
+
+    log(msg);
+
+    return gulp.src(config.packages)
+        .pipe($.bump(options))
+        .pipe(gulp.dest(config.root));
 });
 
 gulp.task('fonts', ['clean:fonts'], function() {

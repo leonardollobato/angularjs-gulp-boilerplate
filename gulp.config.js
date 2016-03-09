@@ -1,5 +1,6 @@
 module.exports = function() {
     var client = './src/client/';
+    var root = './';
     var clientApp = client + 'app/';
     var server = './node_modules/http-server/bin/';
     var temp = './.tmp/';
@@ -34,12 +35,21 @@ module.exports = function() {
         less: [
             client + '/styles/styles.less'
         ],
+        optimized: {
+            app: 'app.js',
+            lib: 'lib.js'
+        },
+        root: root,
         server: server,
         bower: {
             json: require('./bower.json'),
             directory: './bower_components',
             ignorePath: '../..'
         },
+        packages: [
+            './package.json',
+            './bower.json',
+        ],
         templateCache: {
             file: 'templates.js',
             options: {

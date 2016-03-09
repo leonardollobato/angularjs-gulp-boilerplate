@@ -2,16 +2,16 @@
     'use strict';
 
     angular
-        .module('landingApp', ['core'])
+        .module('app', ['core'])
         .config(Router)
-        .controller('MainLandingController', MainLandingController);
+        .controller('MainController', MainController);
 
-    MainLandingController.$inject = [];
+    MainController.$inject = [];
 
     /* @ngInject */
-    function MainLandingController() {
+    function MainController() {
         var vm = this;
-        console.log('landingApp is working 2');
+        console.log('App is working');
     }
 
     Router.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
@@ -21,7 +21,7 @@
 
         console.log('route has been called');
 
-        var layout = "app/layout/layout.html";
+        var layout = 'app/views/layout/layout.html';
 
         // $locationProvider.html5Mode(true);
         $urlRouterProvider
