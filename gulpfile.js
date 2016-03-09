@@ -6,6 +6,22 @@ var gulp = require('gulp'),
     port = process.env.PORT || config.defaultPort,
     $ = require('gulp-load-plugins')({ lazy: true });
 
+gulp.task('help', $.taskListing);
+
+gulp.task('fonts', ['clean:fonts'], function() {
+    log('Copying the Fonts');
+
+    return gulp.src(config.fonts)
+        .pipe(gulp.dest(config.build + 'fonts'));
+});
+
+gulp.task('images', ['clean:images'], function() {
+    log('Copying the Images and Compressing them');
+
+    return gulp.src(config.images)
+        .pipe($.imagemin({ optimizationLevel: 4 }))
+        .pipe(gulp.dest(config.build + 'images'));
+});
 
 gulp.task('serve:dev', ['inject'], function() {
     var isDev = true;
@@ -40,7 +56,6 @@ gulp.task('serve:dev', ['inject'], function() {
             log('*** nodemon bye bye ***');
         });
 });
-
 
 gulp.task('wiredep', function() {
     log('Wire up the bower css js and our app js into html');
@@ -77,6 +92,22 @@ gulp.task('styles', ['clean:styles'], function() {
             ]
         }))
         .pipe(gulp.dest(config.temp));
+});
+
+gulp.task('clean', function() {
+    log('Cleaning Styles, Images and Fonts');
+    var delconfig = [].concat(config.build, config.temp);
+    clean(delconfig);
+});
+
+gulp.task('clean:fonts', function() {
+    var files = config.build + 'fonts/**/*.*';
+    clean(files);
+});
+
+gulp.task('clean:images', function() {
+    var files = config.build + 'images/**/*.*';
+    clean(files);
 });
 
 gulp.task('clean:styles', function() {

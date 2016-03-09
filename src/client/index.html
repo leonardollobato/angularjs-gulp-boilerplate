@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="landingApp">
 
 <head>
     <title></title>
+
     <!-- bower:css -->
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css" />
@@ -12,7 +13,7 @@
     <!-- endinject -->
 </head>
 
-<body>
+<body ng-controller="MainLandingController">
     <h1>AngularJS + Gulp + Boilerplate</h1>
     <br>
     <br>
@@ -53,9 +54,21 @@
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <!-- endbower -->
     <!-- inject:js -->
     <script src="/src/client/app/app.module.js"></script>
+    <script src="/src/client/app/core.module.js"></script>
+    <script src="/src/client/app/directives/setnganimate.js"></script>
+    <script src="/src/client/app/directives/ui-butterbar.js"></script>
+    <script src="/src/client/app/directives/ui-focus.js"></script>
+    <script src="/src/client/app/directives/ui-fullscreen.js"></script>
+    <script src="/src/client/app/directives/ui-jq.js"></script>
+    <script src="/src/client/app/directives/ui-module.js"></script>
+    <script src="/src/client/app/directives/ui-nav.js"></script>
+    <script src="/src/client/app/directives/ui-scroll.js"></script>
+    <script src="/src/client/app/directives/ui-shift.js"></script>
+    <script src="/src/client/app/directives/ui-toggleclass.js"></script>
     <!-- endinject -->
 </body>
 

@@ -10,9 +10,18 @@ module.exports = function() {
             './src/**/*.js',
             './*.js'
         ],
+        browserReloadDelay: 1000,
+        build: './build/',
         client: client,
         css: [
             temp + 'styles.css'
+        ],
+        fonts: [
+            './bower_components/font-awesome/fonts/*.*',
+            './bower_components/bootstrap/dist/fonts/*.*'
+        ],
+        images: [
+            client + 'images/**/*.*'
         ],
         index: client + 'index.html',
         js: [
