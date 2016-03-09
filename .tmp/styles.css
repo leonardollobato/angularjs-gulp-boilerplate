@@ -1,0 +1,10 @@
+.style-test {
+  -webkit-transform-origin: center bottom;
+          transform-origin: center bottom;
+}
+html {
+  background-color: #FFF;
+}
+h1 {
+  font-size: 4em;
+}
