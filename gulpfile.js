@@ -8,6 +8,8 @@ var gulp = require('gulp'),
 
 gulp.task('help', $.taskListing);
 
+gulp.task('default', ['opt']);
+
 gulp.task('opt', ['inject', 'fonts', 'images'], function() {
     log('Optimizing the javascript, css and html');
 
